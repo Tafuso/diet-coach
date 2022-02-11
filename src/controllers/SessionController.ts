@@ -1,8 +1,7 @@
 import api from "../services/api"
 
 const SessionController = {
-  async loginHandler(e :React.MouseEvent, email :string, password :string) {
-    e.preventDefault()
+  async loginHandler( email :string, password :string) {
 
     try {
       await api.post('session', {

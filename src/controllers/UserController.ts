@@ -1,10 +1,16 @@
 import api from "../services/api"
+import IUsers from "../interfaces/IUser"
 
 const UserController = {
-  async registrationHandler(e :React.MouseEvent, username :string, email :string, password :string) {
-    e.preventDefault()
+  async registrationHandler( username :string, email :string, password :string) {
 
     try {
+      const data : IUsers[] = await (await api.get('users')).data
+
+      const userAlreadyExists = data.find(x => x.email === email)
+
+      if (userAlreadyExists) return alert("Email já cadastrado.")
+
       await api.post('users', {
         username,
         email,

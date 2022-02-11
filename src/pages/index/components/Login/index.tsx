@@ -15,16 +15,19 @@ const Login: React.FC = () => {
   //reset after change page
   function resetInputs() {setUsername(''), setEmail(''), setPassword('')}
 
-  //verify if some input is null
-  function verifyInputs() {
-    if (username == '' || email == '' || password == '' || passwordValid == 'invalid') {
-      return true
-    } else return false
+  //verify if some input is null and register user
+  function verifyAndRegister() {
+    if (username === '' || email === '' || password === '' || passwordValid === 'invalid') {
+      return alert("Por favor, preencha todos os campos corretamente.")
+    } else {
+      UserController.registrationHandler( username, email, password)
+    }
   }
 
   //this state says whether it renders login or register
   const [hasAccount, setHasAccount] = useState(true)
 
+  //states verify inputs when focus out
   const [passwordValid, setPasswordValid] = useState('default')
   const [isUsernameNull, setIsUsernameNull] = useState('default')
   const [isEmailNull, setIsEmailNull] = useState('default')
@@ -70,21 +73,14 @@ const Login: React.FC = () => {
       {hasAccount || <>
       <span>Confirme sua Senha</span>
       <input 
-        className={Styles[passwordValid]}
-
-      //verify if confirm_password ==== password on focus out
+      className={Styles[passwordValid]}
       onBlur={e => e.currentTarget.value === password ? setPasswordValid('default') : setPasswordValid('invalid') }
       placeholder="Digite novamente sua senha"
       type="password" />
       </>
       }
       <button 
-      onClick=
-      {
-        //verify if login or register and redirect to controller
-        hasAccount ? e=> SessionController.loginHandler(e, email, password) :
-        e => UserController.registrationHandler(e, username, email, password)
-      }
+      onClick={e => {hasAccount ?  SessionController.loginHandler(email, password) : verifyAndRegister()}}
       >{hasAccount ? "Entrar" : "Criar Conta"}</button>
       <p 
       //set login page or register page
