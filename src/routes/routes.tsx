@@ -1,13 +1,13 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Login from '../pages/login'
+import Index from '../pages/index'
 
 
 const Router: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />}/>
+        <Route path="/" element={<Index />}/>
       </Routes>
     </BrowserRouter>
   )

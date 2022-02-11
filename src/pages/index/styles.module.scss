@@ -1,0 +1,35 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  background-color: #68a752;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .box {
+    width: 1280px;
+    height: 900px;
+    background-color: #fff;
+    border-radius: 16px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.5);
+  }
+
+  .illustration {
+    border-radius: 0px 15px 15px 0px;
+    height: 100%;
+    width: 100%;
+    background-color: #23930a;
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
