@@ -10,8 +10,8 @@ $mydarkgreen: #23930a;
   flex-direction: column;
 
   .title {
-    margin-top: 200px;
-    margin-bottom: 100px;
+    margin-top: 180px;
+    margin-bottom: 80px;
 
     h1 {
       font-size: 35px;
@@ -33,7 +33,7 @@ $mydarkgreen: #23930a;
     border-radius: 10px;
 
     padding-left: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 
     font-size: 18px;
     color: rgba($myblack, $alpha: 0.4);
@@ -49,13 +49,15 @@ $mydarkgreen: #23930a;
     border: none;
 
     cursor: pointer;
-
-    margin-bottom: 20px;
   }
 
-  a {
+  p {
+    margin-top: 15px;
+
     color: rgba($myblack, $alpha: 0.4);
     text-decoration: none;
+
+    cursor: pointer;
 
     b {
       color: $mydarkgreen;
