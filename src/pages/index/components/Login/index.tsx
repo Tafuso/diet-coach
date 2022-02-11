@@ -88,11 +88,7 @@ const Login: React.FC = () => {
       >{hasAccount ? "Entrar" : "Criar Conta"}</button>
       <p 
       //set login page or register page
-      onClick={e => {
-        if (!hasAccount) {
-        if (verifyInputs()) setHasAccount(false)
-        else return alert("Erro ao criar conta. Tente novamente.")
-        else { setHasAccount(true)}, resetInputs()}}
+      onClick={e => {hasAccount ? setHasAccount(false) : setHasAccount(true), resetInputs()}}
       >
         {hasAccount ? <>Não tem uma conta? <b>Crie uma conta.</b></> : <>Já tem uma conta? <b>Faça login.</b></>}
         </p>
