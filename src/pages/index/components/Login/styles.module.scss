@@ -37,6 +37,10 @@ $mydarkgreen: #23930a;
 
     font-size: 18px;
     color: rgba($myblack, $alpha: 0.4);
+
+    &.invalid {
+      border: 2px solid rgba(red, $alpha: 0.8);
+    }
   }
 
   button {
