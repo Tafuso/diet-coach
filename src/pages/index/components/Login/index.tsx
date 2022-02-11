@@ -4,6 +4,7 @@ import Styles from './styles.module.scss'
 
 const Login: React.FC = () => { 
   const [hasAccount, setHasAccount] = useState(false)
+  //this state says whether it renders login or register
   return (
     <div className={Styles.container}>
       <div className={Styles.title}>
