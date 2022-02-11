@@ -9,8 +9,16 @@ $mydarkgreen: #23930a;
   display: flex;
   flex-direction: column;
 
+  .logo {
+    background-image: url('../../../../assets/diet-coach-logo.png');
+    background-size: cover;
+    height: 150px;
+    width: 90px;
+
+    margin: 15px 0;
+  }
+
   .title {
-    margin-top: 180px;
     margin-bottom: 80px;
 
     h1 {

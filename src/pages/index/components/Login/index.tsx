@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Styles from './styles.module.scss'
+import logo from '../../../../assets/diet-coach-logo.png'
 import UserController from "../../../../controllers/UserController";
 import SessionController from "../../../../controllers/SessionController";
 
@@ -35,6 +36,7 @@ const Login: React.FC = () => {
 
   return (
     <div className={Styles.container}>
+      <div className={Styles.logo}/>
       <div className={Styles.title}>
         {/* verify if user hasAccount and set title and welcome message */}
         <h1>{hasAccount ? "Entrar" : "Criar Conta"}</h1>
@@ -45,6 +47,7 @@ const Login: React.FC = () => {
       <input 
       className={Styles[isUsernameNull]}
       onBlur={e => e.currentTarget.value !== "" ? setIsUsernameNull('default') : setIsUsernameNull('invalid') }
+      //set style border when input = null
       placeholder="Digite seu nome completo"
       onChange={e=>setUsername(e.target.value)} 
       value={username}
@@ -56,6 +59,7 @@ const Login: React.FC = () => {
       <input
       className={Styles[isEmailNull]}
       onBlur={e => e.currentTarget.value !== "" ? setIsEmailNull('default') : setIsEmailNull('invalid') }
+      //set style border when input = null      
       placeholder="Ex: meuemail@gmail.com"
       onChange={e=>setEmail(e.target.value)}
       value={email}
@@ -65,7 +69,10 @@ const Login: React.FC = () => {
       <input 
       className={Styles[isPasswordNull]}
       onBlur={e => e.currentTarget.value !== "" ? setIsPasswordNull('default') : setIsPasswordNull('invalid') }
+      //set style border when input = null
       placeholder="Ex: 12334"
+      onKeyPress={e => {if(e.key === 'Enter') {!hasAccount || SessionController.loginHandler(email, password)}}}
+      //active option send form with Enter key
       onChange={e=>setPassword(e.target.value)} 
       value={password}
       type="password" 
@@ -75,16 +82,23 @@ const Login: React.FC = () => {
       <input 
       className={Styles[passwordValid]}
       onBlur={e => e.currentTarget.value === password ? setPasswordValid('default') : setPasswordValid('invalid') }
+      //set style border when input = null || passwords do not match
+      onKeyPress={e => {if(e.key === 'Enter') verifyAndRegister()}}
+      //active option send form with Enter key
       placeholder="Digite novamente sua senha"
       type="password" />
       </>
       }
       <button 
-      onClick={e => {hasAccount ?  SessionController.loginHandler(email, password) : verifyAndRegister()}}
+      onClick={e => {
+        hasAccount ?  SessionController.loginHandler(email, password) : verifyAndRegister()
+      }}
       >{hasAccount ? "Entrar" : "Criar Conta"}</button>
       <p 
       //set login page or register page
-      onClick={e => {hasAccount ? setHasAccount(false) : setHasAccount(true), resetInputs()}}
+      onClick={e => {
+        hasAccount ? setHasAccount(false) : setHasAccount(true), resetInputs()
+      }}
       >
         {hasAccount ? <>Não tem uma conta? <b>Crie uma conta.</b></> : <>Já tem uma conta? <b>Faça login.</b></>}
         </p>
