@@ -1,8 +1,28 @@
 import React, { useState } from "react";
 import Styles from './styles.module.scss'
+import api from '../../../../services/api'
 
 
 const Login: React.FC = () => { 
+
+  async function registrationHandler(e :React.MouseEvent) {
+    e.preventDefault()
+
+    try {
+      await api.post('users', {
+        username,
+        email,
+        password
+      })
+
+    } catch (error) { 
+      alert(error)
+  }
+  }
+
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [hasAccount, setHasAccount] = useState(false)
   //this state says whether it renders login or register
   return (
@@ -13,25 +33,36 @@ const Login: React.FC = () => {
       </div>
       {hasAccount || <>
       <span>Nome</span>
-      <input type="text" />
+      <input 
+      
+      onChange={e=>setUsername(e.target.value)} 
+      type="text" 
+      />
       </>
       }
       <span>Email</span>
-      <input type="text" />
+      <input
+      onChange={e=>setEmail(e.target.value)} 
+      type="text"
+      />
       <span>Senha</span>
-      <input type="password" />
+      <input 
+      onChange={e=>setPassword(e.target.value)} 
+      type="password" 
+      />
       {hasAccount || <>
       <span>Confirme sua Senha</span>
       <input type="password" />
       </>
       }
-      <button>{hasAccount ? "Entrar" : "Criar Conta"}</button>
+      <button 
+      onClick={e => registrationHandler(e)}
+      >{hasAccount ? "Entrar" : "Criar Conta"}</button>
       <p 
       onClick={e => hasAccount ? setHasAccount(false) : setHasAccount(true)}
       >
         {hasAccount ? <>Não tem uma conta? <b>Crie uma conta.</b></> : <>Já tem uma conta? <b>Faça login.</b></>}
         </p>
-
     </div>
   )
 }
