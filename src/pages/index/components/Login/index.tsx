@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Styles from './styles.module.scss'
-import logo from '../../../../assets/diet-coach-logo.png'
 import UserController from "../../../../controllers/UserController";
 import SessionController from "../../../../controllers/SessionController";
 
-
 const Login: React.FC = () => { 
+
 
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -14,7 +13,7 @@ const Login: React.FC = () => {
   
 
   //reset after change page
-  function resetInputs() {setUsername(''), setEmail(''), setPassword('')}
+  function resetInputs() {setUsername(''), setEmail(''), setPassword(''), setIsValidEmail('default'), setIsPasswordNull('default')}
 
   //verify if some input is null and register user
   function verifyAndRegister() {
@@ -31,7 +30,7 @@ const Login: React.FC = () => {
   //states verify inputs when focus out
   const [passwordValid, setPasswordValid] = useState('default')
   const [isUsernameNull, setIsUsernameNull] = useState('default')
-  const [isEmailNull, setIsEmailNull] = useState('default')
+  const [isValidEmail, setIsValidEmail] = useState('default')
   const [isPasswordNull, setIsPasswordNull] = useState('default')
 
   return (
@@ -57,9 +56,9 @@ const Login: React.FC = () => {
       }
       <span>Email</span>
       <input
-      className={Styles[isEmailNull]}
-      onBlur={e => e.currentTarget.value !== "" ? setIsEmailNull('default') : setIsEmailNull('invalid') }
-      //set style border when input = null      
+      className={Styles[isValidEmail]}
+      onBlur={e => e.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) ? setIsValidEmail('default') : setIsValidEmail('invalid') }
+      //verify email with regex     
       placeholder="Ex: meuemail@gmail.com"
       onChange={e=>setEmail(e.target.value)}
       value={email}
@@ -81,7 +80,7 @@ const Login: React.FC = () => {
       <span>Confirme sua Senha</span>
       <input 
       className={Styles[passwordValid]}
-      onBlur={e => e.currentTarget.value === password ? setPasswordValid('default') : setPasswordValid('invalid') }
+      onChange={e => e.currentTarget.value === password ? setPasswordValid('default') : setPasswordValid('invalid') }
       //set style border when input = null || passwords do not match
       onKeyPress={e => {if(e.key === 'Enter') verifyAndRegister()}}
       //active option send form with Enter key
