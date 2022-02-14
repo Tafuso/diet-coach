@@ -1,16 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Styles from './styles.module.scss'
 import UserController from "../../../../controllers/UserController";
 import SessionController from "../../../../controllers/SessionController";
 
 const Login: React.FC = () => { 
 
-
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  
 
   //reset after change page
   function resetInputs() {setUsername(''), setEmail(''), setPassword(''), setIsValidEmail('default'), setIsPasswordNull('default')}
@@ -26,6 +23,8 @@ const Login: React.FC = () => {
 
   //this state says whether it renders login or register
   const [hasAccount, setHasAccount] = useState(true)
+
+  const [onClickSubmitForm, setOnClickSubmitForm] = useState(false)
 
   //states verify inputs when focus out
   const [passwordValid, setPasswordValid] = useState('default')
@@ -70,7 +69,7 @@ const Login: React.FC = () => {
       onBlur={e => e.currentTarget.value !== "" ? setIsPasswordNull('default') : setIsPasswordNull('invalid') }
       //set style border when input = null
       placeholder="Ex: 12334"
-      onKeyPress={e => {if(e.key === 'Enter') {!hasAccount || SessionController.loginHandler(email, password)}}}
+/*       onKeyPress={e => {if(e.key === 'Enter') {!hasAccount || SessionController({}, {email, password})}}} */
       //active option send form with Enter key
       onChange={e=>setPassword(e.target.value)} 
       value={password}
@@ -89,10 +88,9 @@ const Login: React.FC = () => {
       </>
       }
       <button 
-      onClick={e => {
-        hasAccount ?  SessionController.loginHandler(email, password) : verifyAndRegister()
-      }}
+      onClick={e => hasAccount ? setOnClickSubmitForm(true) : verifyAndRegister()}
       >{hasAccount ? "Entrar" : "Criar Conta"}</button>
+      {onClickSubmitForm &&  <SessionController email={email} password={password}/>}
       <p 
       //set login page or register page
       onClick={e => {
