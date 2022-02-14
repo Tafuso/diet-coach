@@ -1,4 +1,3 @@
-$myblack: #0a0a07;
 $mydarkgreen: #23930a;
 
 .container {
@@ -26,7 +25,7 @@ $mydarkgreen: #23930a;
     }
 
     h2 {
-      color: rgba($myblack, $alpha: 0.4);
+      color: rgba(#0a0a07, $alpha: 0.4);
     }
   }
 
@@ -37,14 +36,14 @@ $mydarkgreen: #23930a;
 
   input {
     height: 50px;
-    border: 1px solid rgba($myblack, $alpha: 0.4);
+    border: 1px solid rgba(#0a0a07, $alpha: 0.4);
     border-radius: 10px;
 
     padding-left: 20px;
     margin-bottom: 15px;
 
     font-size: 18px;
-    color: rgba($myblack, $alpha: 0.4);
+    color: rgba(#0a0a07, $alpha: 0.4);
 
     &.invalid {
       border: 2px solid rgba(red, $alpha: 0.8);
@@ -66,7 +65,7 @@ $mydarkgreen: #23930a;
   p {
     margin-top: 15px;
 
-    color: rgba($myblack, $alpha: 0.4);
+    color: rgba(#0a0a07, $alpha: 0.4);
     text-decoration: none;
 
     cursor: pointer;
