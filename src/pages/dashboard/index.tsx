@@ -8,6 +8,7 @@ import Styles from './styles.module.scss'
 import { useNavigate } from 'react-router-dom'
 import ModalAdd from "../../components/ModalAdd";
 import ModalEdit from "../../components/ModalEdit";
+import DeleteModal from "../../components/ModalDelete";
 
 
 const Dashboard: React.FC = () => { 
@@ -26,7 +27,7 @@ const Dashboard: React.FC = () => {
   }, [mealsData])
 
   async function getMealsByUser() {
-    const userMealsData : IMeal[]=  (await api.get(`${globalState.id}/meals/0`, {
+    const userMealsData : IMeal[]=  (await api.get(`${globalState.id}/meals/${pagination}`, {
       headers: {
         auth: globalState.id
       }
@@ -36,8 +37,10 @@ const Dashboard: React.FC = () => {
   }    
 
   const [openAddModal, setOpenAddModal] = useState(false)
-  const [openEditModal, setOpenEditModal] = useState(false)
-  const [mealToActions, setMealToActions] = useState(0)
+  const [openEditModal, setOpenEditModal] = useState(0)
+  const [openDeleteModal, setOpenDeleteModal] = useState(0)
+  const [pagination, setPagination] = useState(0)
+
 
   return (
     <div className={Styles.container}>
@@ -77,13 +80,21 @@ const Dashboard: React.FC = () => {
         <MealCard 
         key={meal.id} 
         Meal={meal} 
-        setMealToActions={setMealToActions}
-        setOpenEditModal={setOpenEditModal}/>
+        setOpenEditModal={setOpenEditModal}
+        setOpenDeleteModal={setOpenDeleteModal}/>
       ))}
-      <LastCard  mealsData={mealsData} setOpenAddModal={setOpenAddModal}/>
+      <LastCard  
+      mealsData={mealsData} 
+      pagination={pagination}
+      setPagination={setPagination}
+      setOpenAddModal={setOpenAddModal}/>
       {openAddModal && <ModalAdd setOpenAddModal={setOpenAddModal}/>}
-      {openEditModal && <ModalEdit 
-      mealToActions={mealToActions} setOpenEditModal={setOpenEditModal} />}
+      {openEditModal !== 0 && <ModalEdit
+        openEditModal={openEditModal}
+        setOpenEditModal={setOpenEditModal} />}
+      {openDeleteModal !== 0 && <DeleteModal
+      openDeleteModal={openDeleteModal}
+      setOpenDeleteModal={setOpenDeleteModal} />}
     </div>
   )
 }

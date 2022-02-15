@@ -5,12 +5,12 @@ import deleteIcon from "../../assets/delete.png"
 import IMeal from "../../interfaces/IMeal";
 
 type Props = {
-  Meal: IMeal
-  setOpenEditModal: Dispatch<React.SetStateAction<boolean>>;
-  setMealToActions: Dispatch<React.SetStateAction<number>>
+  Meal: IMeal,
+  setOpenEditModal: Dispatch<React.SetStateAction<number>>,
+  setOpenDeleteModal: Dispatch<React.SetStateAction<number>>
 }
-const MealCard: React.FC<Props> = ({ Meal, setOpenEditModal, setMealToActions}) => { 
-  const { type_meals, date, protein, protein_qtd, carbohydrate, carbohydrate_qtd, vegetable, vegetable_qtd } = Meal
+const MealCard: React.FC<Props> = ({ Meal, setOpenEditModal, setOpenDeleteModal}) => { 
+  const { id, type_meals, date, protein, protein_qtd, carbohydrate, carbohydrate_qtd, vegetable, vegetable_qtd } = Meal
   return (
     <div className={Styles.container}>
       <h2>{type_meals}<span> - {new Date (date).toLocaleDateString("pt-BR")}</span></h2>
@@ -36,10 +36,13 @@ const MealCard: React.FC<Props> = ({ Meal, setOpenEditModal, setMealToActions}) 
       </div>
       <div className={Styles.icones}>
         <img 
-        onClick={e => {setOpenEditModal(true)}}
+        onClick={e => {setOpenEditModal(id || 0)}}
         src={editIcon} 
         alt="icone" />
-        <img src={deleteIcon} alt="icone"/>
+        <img
+        onClick={e => {setOpenDeleteModal(id || 0)}}
+        src={deleteIcon} 
+        alt="icone"/>
       </div>
     </div>        
   )

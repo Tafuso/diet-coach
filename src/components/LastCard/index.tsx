@@ -4,20 +4,23 @@ import Styles from './styles.module.scss'
 
 
 interface IProps {
+  pagination: number,
+  setPagination: Dispatch<React.SetStateAction<number>>,
   mealsData: IMeal[]
   setOpenAddModal: Dispatch<React.SetStateAction<boolean>>;
 }
-const LastCard: React.FC <IProps>= ({mealsData, setOpenAddModal}) => { 
+const LastCard: React.FC <IProps>= ({pagination, setPagination, mealsData, setOpenAddModal}) => { 
   return (
     <div className={Styles.container}>
         <ul className={Styles.pagination}>
           
-          <li>←</li>
-          <li className={Styles.active}>1</li>
-          <li>2</li>
-          <li>...</li>
-          <li>3</li>
-          <li>→</li>
+          <li
+          onClick={e => {pagination > 0 && setPagination(pagination - 1)}}
+          >←</li>
+          <li className={Styles.active}>{pagination + 1}</li>
+          <li 
+          onClick={e => setPagination(pagination + 1)}
+          >→</li>
         </ul>
 
         <button 

@@ -4,13 +4,32 @@ import api from "../../services/api";
 import Styles from './styles.module.scss'
 
 interface IProps {
-  setOpenEditModal: Dispatch<React.SetStateAction<boolean>>;
-  mealToActions: number
+  openEditModal: number
+  setOpenEditModal: Dispatch<React.SetStateAction<number>>;
 }
 
-const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => { 
+const ModalEdit: React.FC <IProps>= ({openEditModal, setOpenEditModal}) => { 
+  const [executed, setExecuted] = useState(false)
+  const getMealById = async () => {
+    const mealById :IMeal= (await api.get(`/meals/${openEditModal}`)).data[0]
+    
+    setType_meals(mealById.type_meals)
+    setDate(new Date (mealById.date).toLocaleDateString("pt-BR"))
+    setProtein(mealById.protein)
+    setProtein_qtd(mealById.protein_qtd)
+    setCarbohydrate(mealById.carbohydrate)
+    setCarbohydrate_qtd(mealById.carbohydrate_qtd)
+    setVegetable(mealById.vegetable)
+    setVegetable_qtd(mealById.vegetable_qtd)
+
+    mealById.type_meals !== '' && setExecuted(true)
+  }
+  
+  executed || getMealById()
+  
+
   const [type_meals, setType_meals] = useState('Café da Manhã')
-  const [date, setDate] = useState((new Date).toLocaleDateString())
+  const [date, setDate] = useState('')
   const [protein, setProtein] = useState('')
   const [protein_qtd, setProtein_qtd] = useState(0)
   const [carbohydrate, setCarbohydrate] = useState('')
@@ -29,9 +48,7 @@ const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => {
     vegetable_qtd
   }
 
-    const [mealById, setMealById] = useState<IMeal>(Meal)
-
-  const handlerAddMeal = () => {
+  const handlerEditMeal = () => {
     if (protein === '' && carbohydrate === '' && vegetable === '') {
       return alert('Preencha pelo menos um alimento, por favor.')
     } else if (
@@ -41,11 +58,11 @@ const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => {
       ) {
         return alert('Preencha a quantidade de gramas, por favor.')
       } else {
-        const registerMeal = async () => {
-          await api.put(`/1/meals`, Meal)
+        const editMeal = async () => {
+          await api.put(`/meals/${openEditModal}`, Meal)
         }
 
-        registerMeal().finally(() => setOpenEditModal(false))
+        editMeal().finally(() => setOpenEditModal(0))
       }
   }
 
@@ -54,12 +71,13 @@ const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => {
       <div className={Styles.box}>
         <h2>Editar Refeição</h2>
         <button 
-        onClick={e => setOpenEditModal(false)}
+        onClick={e => setOpenEditModal(0)}
         className={Styles.closeBtn}>X</button>
         <div className={Styles.firstLine}>
           <div>
             <span>Qual refeição deseja adicionar?</span>
             <select 
+            value={type_meals}
             name="type_meals" 
             size={1}
             onChange={e => setType_meals(e.currentTarget.value)}
@@ -76,6 +94,7 @@ const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => {
             <input 
               type="text"
               name="date"
+              defaultValue={date}
               maxLength={10}
               placeholder="dd/mm/yyyy"
               onKeyUp={e => {var v = e.currentTarget.value;
@@ -95,6 +114,7 @@ const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => {
             <select 
             defaultValue={''}
             name="protein" 
+            value={protein}
             size={1}
             onChange={e => setProtein(e.currentTarget.value) }
             >  
@@ -108,6 +128,7 @@ const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => {
             <p>-</p>
             <input  
             className={Styles.number}
+            value={protein_qtd}
             maxLength={4} 
             type="text" 
             onChange={e => {e.target.value = e.target.value.replaceAll(/[^0-9]/g,''), setProtein_qtd(parseInt(e.currentTarget.value))}}
@@ -120,6 +141,7 @@ const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => {
             <select 
             defaultValue={''}
             name="carbohydrate" 
+            value={carbohydrate}
             size={1}
             onChange={e => setCarbohydrate(e.currentTarget.value)}
             >  
@@ -134,6 +156,7 @@ const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => {
             <input  
             className={Styles.number}
             maxLength={4} 
+            value={carbohydrate_qtd}
             type="text" 
             onChange={e => {e.target.value = e.currentTarget.value.replaceAll(/[^0-9]/g,''), setCarbohydrate_qtd(parseInt(e.currentTarget.value))}}
             min={0}/>
@@ -143,6 +166,7 @@ const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => {
             <span className={Styles.vegetable}>Verdura</span>
             <select 
             defaultValue={''}
+            value={vegetable}
             name="vegetable" 
             size={1}
             onChange={e => setVegetable(e.currentTarget.value)}
@@ -158,6 +182,7 @@ const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => {
             <input  
             className={Styles.number}
             maxLength={4} 
+            value={vegetable_qtd}
             type="text" 
             onChange={e => {e.target.value = e.currentTarget.value.replaceAll(/[^0-9]/g,''), setVegetable_qtd(parseInt(e.currentTarget.value))}}
             min={0}/>
@@ -165,7 +190,7 @@ const ModalEdit: React.FC <IProps>= ({setOpenEditModal, mealToActions}) => {
           </div>
         </div>
         <button
-        onClick={e => {handlerAddMeal()}}>Atualizar</button>
+        onClick={e => {handlerEditMeal()}}>Atualizar</button>
       </div>
     </div>        
   )
