@@ -1,0 +1,146 @@
+.container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(black, 0.6);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .box {
+    position: relative;
+    background-color: #fff;
+    border-radius: 10px;
+
+    box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.5);
+    height: 520px;
+    width: 700px;
+
+    font-size: 22px;
+
+    h2 {
+      margin: 20px 0 20px 20px;
+    }
+
+    .closeBtn {
+      position: absolute;
+      top: -30px;
+      left: 660px;
+      border: none;
+      padding: 15px 25px;
+      background-color: #d83920;
+
+      box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .firstLine {
+      margin-left: 20px;
+      height: 100px;
+      width: 700px;
+      display: flex;
+      align-items: center;
+
+      div {
+        display: flex;
+        flex-direction: column;
+
+        margin-right: 50px;
+
+        span {
+          color: rgba(#0a0a07, 0.5);
+          margin-bottom: 12px;
+        }
+
+        input,
+        select {
+          border: none;
+          border-radius: 5px;
+          padding: 5px 10px;
+          background-color: rgba(#0a0a07, 0.2);
+        }
+      }
+    }
+
+    .secondLine {
+      margin-left: 20px;
+      height: 100px;
+      width: 700px;
+      display: flex;
+      flex-direction: column;
+
+      span {
+        color: rgba(#0a0a07, 0.5);
+      }
+
+      & > span {
+        margin: 20px 0;
+      }
+
+      div {
+        display: flex;
+        justify-content: space-between;
+
+        margin: 10px 0;
+        span {
+          margin-right: 10px;
+
+          &.protein {
+            color: #b6465f;
+          }
+
+          &.carbohydrate {
+            color: #f9cf39;
+          }
+
+          &.vegetable {
+            color: #00b84d;
+          }
+        }
+
+        input,
+        select {
+          border: none;
+          border-radius: 5px;
+          padding: 5px 10px;
+          background-color: rgba(#0a0a07, 0.2);
+        }
+
+        select {
+          margin-left: auto;
+          margin-right: 20px;
+        }
+
+        .number {
+          width: 100px;
+          padding: 5px 10px;
+          margin-left: 20px;
+        }
+
+        b {
+          margin-left: 10px;
+          margin-right: 150px;
+        }
+      }
+    }
+    button {
+      position: absolute;
+      top: 420px;
+      left: 260px;
+      border: none;
+      padding: 15px 30px;
+      background-color: #68a752;
+
+      box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+    }
+  }
+}

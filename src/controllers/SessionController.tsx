@@ -16,8 +16,8 @@ const SessionController : React.FC<Props>= ({ email, password }) => {
   const navigate = useNavigate()
   
   useEffect(() => {
-    navigate('/dashboard')
-  }, [globalState.isLogged])
+    globalState.isLogged && navigate('/dashboard')
+  }, [globalState])
 
   async function loginHandler() {
     try {      
@@ -35,7 +35,6 @@ const SessionController : React.FC<Props>= ({ email, password }) => {
         setGlobalState({ isLogged: true, username: res.data.username, id: res.data.id })
       })
 
-    
     } catch (error) { 
       alert("Erro de autenticação. Tente novamente.")
   }
@@ -43,9 +42,7 @@ const SessionController : React.FC<Props>= ({ email, password }) => {
 
   loginHandler()
 
-  return(
-    null
-  )
+  return null
 }
 
 

@@ -12,7 +12,7 @@ const Router: React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />}/>
-        <Route path="/dashboard"  element={<Dashboard />}/>
+        <Route path="/dashboard"  element={globalState.isLogged ?  <Dashboard /> :  <Index />}/>
       </Routes>
     </BrowserRouter>
   )

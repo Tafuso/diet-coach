@@ -1,6 +1,7 @@
-export default interface Meal {
+export default interface IMeal {
+  id?: number,
   type_meals :string,
-  date :string,
+  date : string,
   protein :string, 
   protein_qtd :number, 
   carbohydrate :string, 

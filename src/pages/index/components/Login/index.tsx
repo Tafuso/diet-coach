@@ -69,7 +69,7 @@ const Login: React.FC = () => {
       onBlur={e => e.currentTarget.value !== "" ? setIsPasswordNull('default') : setIsPasswordNull('invalid') }
       //set style border when input = null
       placeholder="Ex: 12334"
-/*       onKeyPress={e => {if(e.key === 'Enter') {!hasAccount || SessionController({}, {email, password})}}} */
+      onKeyPress={e => {if(e.key === 'Enter') {hasAccount ? setOnClickSubmitForm(true) : verifyAndRegister()}}}
       //active option send form with Enter key
       onChange={e=>setPassword(e.target.value)} 
       value={password}

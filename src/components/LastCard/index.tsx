@@ -1,12 +1,17 @@
-import React from "react";
+import React, { Dispatch } from "react";
+import IMeal from "../../interfaces/IMeal";
 import Styles from './styles.module.scss'
-import editIcon from "../../assets/edit.png"
-import deleteIcon from "../../assets/delete.png"
 
-const LastCard: React.FC = () => { 
+
+interface IProps {
+  mealsData: IMeal[]
+  setOpenAddModal: Dispatch<React.SetStateAction<boolean>>;
+}
+const LastCard: React.FC <IProps>= ({mealsData, setOpenAddModal}) => { 
   return (
     <div className={Styles.container}>
         <ul className={Styles.pagination}>
+          
           <li>←</li>
           <li className={Styles.active}>1</li>
           <li>2</li>
@@ -15,7 +20,9 @@ const LastCard: React.FC = () => {
           <li>→</li>
         </ul>
 
-        <button className={Styles.addButton}>+</button>
+        <button 
+        onClick={e => setOpenAddModal(true)}
+        className={Styles.addButton}>+</button>
     </div>        
   )
 }

@@ -76,6 +76,24 @@ $myred: #ee6352;
             margin-right: 5px;
             border-color: $mypurple;
           }
+
+          &.protein {
+            span {
+              color: #b6465f;
+            }
+          }
+
+          &.carbohydrate {
+            span {
+              color: #f9cf39;
+            }
+          }
+
+          &.vegetable {
+            span {
+              color: #00b84d;
+            }
+          }
         }
       }
 
