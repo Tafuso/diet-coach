@@ -128,7 +128,7 @@ const ModalEdit: React.FC <IProps>= ({openEditModal, setOpenEditModal}) => {
             <p>-</p>
             <input  
             className={Styles.number}
-            value={protein_qtd}
+            value={protein_qtd > 0 ? protein_qtd : undefined}
             maxLength={4} 
             type="text" 
             onChange={e => {e.target.value = e.target.value.replaceAll(/[^0-9]/g,''), setProtein_qtd(parseInt(e.currentTarget.value))}}
@@ -156,7 +156,7 @@ const ModalEdit: React.FC <IProps>= ({openEditModal, setOpenEditModal}) => {
             <input  
             className={Styles.number}
             maxLength={4} 
-            value={carbohydrate_qtd}
+            value={carbohydrate_qtd > 0? carbohydrate_qtd : undefined}
             type="text" 
             onChange={e => {e.target.value = e.currentTarget.value.replaceAll(/[^0-9]/g,''), setCarbohydrate_qtd(parseInt(e.currentTarget.value))}}
             min={0}/>
@@ -182,7 +182,7 @@ const ModalEdit: React.FC <IProps>= ({openEditModal, setOpenEditModal}) => {
             <input  
             className={Styles.number}
             maxLength={4} 
-            value={vegetable_qtd}
+            value={vegetable_qtd > 0 ? vegetable_qtd : undefined}
             type="text" 
             onChange={e => {e.target.value = e.currentTarget.value.replaceAll(/[^0-9]/g,''), setVegetable_qtd(parseInt(e.currentTarget.value))}}
             min={0}/>

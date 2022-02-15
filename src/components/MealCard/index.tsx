@@ -15,24 +15,24 @@ const MealCard: React.FC<Props> = ({ Meal, setOpenEditModal, setOpenDeleteModal}
     <div className={Styles.container}>
       <h2>{type_meals}<span> - {new Date (date).toLocaleDateString("pt-BR")}</span></h2>
       <div className={Styles.food}>
-      {protein &&
+      {protein_qtd ?
         <div className={Styles.protein}>
         <p>{protein}</p>
         <span>{protein_qtd}</span>
         </div>
-        }
-      {carbohydrate && 
+      : null}
+      {carbohydrate_qtd ?
         <div className={Styles.carbohydrate}>
           <p>{carbohydrate}</p>
           <span>{carbohydrate_qtd}</span>
         </div>
-      }
-      {vegetable &&
+      : null}
+      {vegetable_qtd ? 
         <div className={Styles.vegetable}>
           <p>{vegetable}</p>
           <span>{vegetable_qtd}</span>
         </div>
-      }
+      : null}
       </div>
       <div className={Styles.icones}>
         <img 
