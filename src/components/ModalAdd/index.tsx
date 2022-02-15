@@ -1,4 +1,5 @@
-import React, { Dispatch, useState } from "react";
+import React, { Dispatch, useContext, useState } from "react";
+import UserContext from "../../context/UserContext";
 import IMeal from "../../interfaces/IMeal";
 import api from "../../services/api";
 import Styles from './styles.module.scss'
@@ -8,6 +9,7 @@ interface IProps {
 }
 
 const ModalAdd: React.FC <IProps>= ({setOpenAddModal}) => { 
+  const { state: globalState, setState: setGlobalState } = useContext(UserContext)
 
   const [type_meals, setType_meals] = useState('Café da Manhã')
   const [date, setDate] = useState((new Date).toLocaleDateString())
@@ -40,7 +42,7 @@ const ModalAdd: React.FC <IProps>= ({setOpenAddModal}) => {
         return alert('Preencha a quantidade de gramas, por favor.')
       } else {
         const registerMeal = async () => {
-          await api.post(`/1/meals`, Meal)
+          await api.post(`/${globalState.id}/meals`, Meal)
         }
 
         registerMeal().finally(() => setOpenAddModal(false))
